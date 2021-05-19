@@ -53,7 +53,7 @@ export interface UserObject {
   password: string,
   address: string,
 }
-export interface UserModel {
+export interface User {
   _id: string,
   username: string,
   email: string,

@@ -28,4 +28,4 @@ const UserTemp: Schema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('userTable', UserTemp)
+export default mongoose.model('userTable', UserTemp)

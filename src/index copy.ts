@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { Application } from "express";
 import * as http from "http";
 import * as cors from "cors";
 require("dotenv").config();

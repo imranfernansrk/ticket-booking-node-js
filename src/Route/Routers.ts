@@ -71,14 +71,16 @@ router.get('/tickets',async (req: Request, res: Response)=>{
 router.put('/ticket/:id',async (req: Request, res: Response)=>{
     const id = await req.params.id;
     const status = await req.body.status;
-
-    await ticketTemp.findOneAndUpdate(id, { "status": status })
+    const update = {
+        "status": status
+    }
+    await ticketTemp.findByIdAndUpdate(id, update)
     .then((ticket)=>{
         console.log('succ', ticket)
-        if(! ticket){
+        if(!ticket){
             return res.status(404).send();
         }
-        res.send(ticket);
+        res.send({"message": "success"});
     })
     .catch((error)=>{
         console.log('fail')

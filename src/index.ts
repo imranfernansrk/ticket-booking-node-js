@@ -5,8 +5,10 @@ import * as http from "http";
 import {initialRoutes} from './Routes/index'
 import * as cors  from "cors";
 import * as mongoose from 'mongoose';
+import { Log } from "./Logger/Logger";
 require("dotenv").config();
 
+const Logs = new Log();
 class App{
     expressApp: Application;
     initialroutes: initialRoutes = new initialRoutes();
@@ -27,7 +29,7 @@ class App{
         http.createServer(this.expressApp).listen(process.env.PORT);
     }
     mongoSetup() {
-        mongoose.connect(process.env.DATABASE_URL,{ useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, ()=>console.log('Databse Connected'));
+        mongoose.connect(process.env.DATABASE_URL,{ useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, ()=>Logs.logger.info(`Database Connected ${process.env.PORT}`));
     }
 }
 export default new App().expressApp;

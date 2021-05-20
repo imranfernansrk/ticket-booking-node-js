@@ -26,7 +26,8 @@ class App{
         this.expressApp.use(cors({ credentials: true, origin: true , }));
     }
     portSetup() {
-        http.createServer(this.expressApp).listen(process.env.PORT);
+        const PORT = process.env.PORT || 4000;
+        http.createServer(this.expressApp).listen(PORT);
     }
     mongoSetup() {
         mongoose.connect(process.env.DATABASE_URL,{ useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, ()=>Logs.logger.info(`Database Connected ${process.env.PORT}`));

@@ -31,3 +31,4 @@ class App{
         mongoose.connect(process.env.DATABASE_URL,{ useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, ()=>console.log('Databse Connected'));
     }
 }
+export default new App().expressApp;

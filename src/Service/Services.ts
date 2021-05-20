@@ -62,7 +62,31 @@ export class Services {
             return response.error('Auth Generate Error');
         }
     }
-
+    public async createTicket(body: TicketObject): Promise<post_response | get_response | error_response | fail_response> {
+        try{
+            let data: any = await this.UserDao.createTicket(body);
+            if(!data){
+                return response.error('failure');
+            }
+            return response.Success(data, null, 'success');
+        }catch (e) {
+            return response.error('Auth Generate Error');
+        }
+    }
+    public async deleteTicket(id: string): Promise<post_response | get_response | error_response | fail_response> {
+        if(id == undefined){
+            return response.badRequest('failure');
+        }
+        try{
+            let data: any = await this.UserDao.findByIdAndDelete(id);
+            if(!data){
+                return response.error('failure');
+            }
+            return response.Success(data, null, 'success');
+        }catch (e) {
+            return response.notFound();
+        }
+    }
     // public async updateuser(id: string, body: data): Promise<post_response | get_response | error_response> {
 
     //         const user: any = await this.UserDao.getUser(id);

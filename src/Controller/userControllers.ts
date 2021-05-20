@@ -16,16 +16,16 @@ export class userControllers {
         const data: post_response | get_response | error_response | fail_response = await UserService.signin(username, password);
         res.status(data.statusCode).json(data);
     }
-    // public async createTicket(req: Request, res: Response): Promise<void> {
-    //     const body: TicketObject = req.body;
-    //     const data: post_response | get_response | error_response | fail_response = await UserService.updateuser(body);
-    //     res.status(data.statusCode).json(data);
-    // }
-    // public async deleteTicket(req: Request, res: Response): Promise<void> {
-    //     const id = req.params.id;
-    //     const data: post_response | get_response | error_response | fail_response = await UserService.updateuser(id);
-    //     res.status(data.statusCode).json(data);
-    // }
+    public async createTicket(req: Request, res: Response): Promise<void> {
+        const body: TicketObject = req.body;
+        const data: post_response | get_response | error_response | fail_response = await UserService.createTicket(body);
+        res.status(data.statusCode).json(data);
+    }
+    public async deleteTicket(req: Request, res: Response): Promise<void> {
+        const id = req.params.id;
+        const data: post_response | get_response | error_response | fail_response = await UserService.deleteTicket(id);
+        res.status(data.statusCode).json(data);
+    }
     // public async updateTicket(req: Request, res: Response): Promise<void> {
     //     const id = await req.params.id;
     //     const status = await req.body.status;

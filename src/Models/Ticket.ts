@@ -19,5 +19,4 @@ const TicketTemp: Schema = new mongoose.Schema({
         required: true
     }
 })
-
-module.exports = mongoose.model('ticketTable', TicketTemp);
+export default mongoose.model('ticketTable', TicketTemp);

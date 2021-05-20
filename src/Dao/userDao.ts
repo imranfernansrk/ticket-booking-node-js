@@ -1,4 +1,4 @@
-import * as TicketModel from '../Models/Ticket';
+import TicketModel from '../Models/Ticket';
 import UserModel from "../Models/User";
 import { User, UserObject, TicketObject } from '../Utils/Types'
 export class userDao {
@@ -13,10 +13,20 @@ export class userDao {
           });
         return await result.save();
     }
+    public async createTicket(body: TicketObject):Promise<object>{
+        console.log("body",body);
+        const result = new TicketModel({
+            movieName: body.movieName,
+            movieStartTime: body.movieStartTime,
+            movieEndTime: body.movieEndTime,
+            status: body.status
+          });
+        return await result.save();
+    }
 
-    // public async signin(id:string):Promise<any>{
-    //     return await userModal.findById(id); 
-    // }
+    public async findByIdAndDelete(id:string):Promise<any>{
+        return await TicketModel.findByIdAndDelete(id);
+    }
     public async findone(data:string){
         return await UserModel.findOne({username:data}); 
     }

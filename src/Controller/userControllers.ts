@@ -13,6 +13,7 @@ export class userControllers {
     }
     public async signin(req: Request, res: Response): Promise<void> {
         const { username, password } = await req.body;
+        console.log('signin Cntr', username, password);
         const data: post_response | get_response | error_response | fail_response = await UserService.signin(username, password);
         res.status(data.statusCode).json(data);
     }
@@ -32,14 +33,14 @@ export class userControllers {
         const data: post_response | get_response | error_response | fail_response = await UserService.updateTicket(id, status);
         res.status(data.statusCode).json(data);
     }    
-    // public async getTicket(req: Request, res: Response): Promise<void> {
-    //     const id = req.params.id;
-    //     const data: post_response | get_response | error_response | fail_response = await UserService.updateuser(id);
-    //     res.status(data.statusCode).json(data);
-    // }    
-    // public async getTicketsByStatus(req: Request, res: Response): Promise<void> {
-    //     const status = req.query.status;
-    //     const data: post_response | get_response | error_response | fail_response = await UserService.updateuser(status);
-    //     res.status(data.statusCode).json(data);
-    // }
+    public async getTicket(req: Request, res: Response): Promise<void> {
+        const id = req.params.id;
+        const data: post_response | get_response | error_response | fail_response = await UserService.getTicket(id);
+        res.status(data.statusCode).json(data);
+    }    
+    public async getTicketsByStatus(req: Request, res: Response): Promise<void> {
+        const query = req.query;
+        const data: post_response | get_response | error_response | fail_response = await UserService.getTicketByStatus(query);
+        res.status(data.statusCode).json(data);
+    }
 }

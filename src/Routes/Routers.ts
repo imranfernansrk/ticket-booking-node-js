@@ -13,7 +13,7 @@ export class userRoutes {
          app.route('/createTicket').post(Authorization.Auth,this.UserController.createTicket);
          app.route('/ticket/:id').put(Authorization.Auth,this.UserController.updateTicket);       
          app.route('/ticket/:id').delete(Authorization.Auth,this.UserController.deleteTicket);
-        //  app.route('/ticket/:id').get(Authorization.Auth,this.Controllers.getUser);
-        //  app.route('/tickets').get(Authorization.Auth,this.Controllers.getUser);
+         app.route('/ticket/:id').get(Authorization.Auth,this.UserController.getTicket);
+         app.route('/tickets').get(Authorization.Auth,this.UserController.getTicketsByStatus);
     }
 }

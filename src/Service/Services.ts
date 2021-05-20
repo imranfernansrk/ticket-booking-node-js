@@ -1,18 +1,22 @@
 import { userDao } from '../Dao/userDao';
-// import { User } from '../Validation/validation'
+import { UserValidate } from '../Validation/Validation'
 import { Response } from '../Utils/Response';
 import * as jwt from 'jsonwebtoken'
 import { post_response, get_response, error_response, fail_response } from '../Utils/Types'
 import { User, UserObject, TicketObject } from '../Utils/Types'
 import { checkPassword, hashPassword } from '../ManagePassword/managePass';
 const response = new Response();
-// const user_validate = new User();
+const validate = new UserValidate();
 export class Services {
     constructor(public UserDao: userDao = new userDao()) {
 
     }
     public async signup(body: UserObject): Promise<post_response | get_response | error_response | fail_response> {
         let data: any = await this.UserDao.findone(body.username)
+        let validation = await validate.validateUser(body);
+        if(validation.message){
+            return response.badRequest(validation.message);
+        }
         if (!data) {
             data.password = await hashPassword(data.password);
             data = await this.UserDao.createUser(body);
@@ -38,6 +42,7 @@ export class Services {
 
     public async signin(username: string, password: string): Promise<post_response | get_response | error_response | fail_response> {
         let user: any = await this.UserDao.findone(username);
+        console.log('signin Serv', user);
         if (!user) {
             return response.notFound()
         }
@@ -109,5 +114,36 @@ export class Services {
             return response.notFound();
         }
     }
-
+    public async getTicket(id: string): Promise<post_response | get_response | error_response | fail_response> {
+        if (id == undefined) {
+            return response.badRequest('failure');
+        }
+        try {
+            let data: any = await this.UserDao.getTicket(id);
+            if (!data) {
+                return response.notFound();
+            }
+            return response.Success(data, null, 'success');
+        } catch (e) {
+            return response.notFound();
+        }
+    }
+    public async getTicketByStatus(query: any): Promise<post_response | get_response | error_response | fail_response> {
+        if(query && query?.status == undefined){
+            return response.badRequest('failure');
+        }
+        let status = query.status;
+        let filter = {
+            status: status
+        }
+        try {
+            let data: any = await this.UserDao.getTicketsByFilter(filter);
+            if (data.length < 1) {
+                return response.notFound();
+            }
+            return response.Success(data, null, 'success');
+        } catch (e) {
+            return response.notFound();
+        }
+    }
 }

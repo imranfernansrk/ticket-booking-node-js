@@ -2,7 +2,6 @@ import * as express from "express";
 import { Application } from "express";
 import * as bodyParser from "body-parser";
 import * as http from "http";
-// import * as routeUrls from "./Routes/Routers";
 import {initialRoutes} from './Routes/index'
 import * as cors  from "cors";
 import * as mongoose from 'mongoose';

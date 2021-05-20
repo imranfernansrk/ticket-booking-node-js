@@ -14,6 +14,7 @@ export class userDao {
         return await result.save();
     }
     public async findone(data:string){
+        console.log('Dao', data)
         return await UserModel.findOne({username:data}); 
     }
     public async getUser(id: string){
@@ -29,7 +30,6 @@ export class userDao {
           });
         return await result.save();
     }
-
     public async findByIdAndDelete(id:string):Promise<any>{
         return await TicketModel.findByIdAndDelete(id);
     }
@@ -39,7 +39,7 @@ export class userDao {
     public async getTicket(id: string){
         return await TicketModel.findById(id);
     }
-    // public async updateuser(id:string,data:data):Promise<object | null>{
-    //    return await userModal.findOneAndUpdate({_id: id}, data);
-    // }
+    public async getTicketsByFilter(filter: object){
+        return await TicketModel.find(filter);   
+    }
 }

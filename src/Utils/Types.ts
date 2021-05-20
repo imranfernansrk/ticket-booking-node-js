@@ -23,23 +23,6 @@ export interface fail_response {
   statusCode: number;
   message: string;
 }
-
-export interface modal {
-  _id: string,
-  profile_picture: String,
-  email_id: String,
-  First_Name: String,
-  Last_Name: String,
-  Gender: String,
-  Phone_Number: Number,
-  Dateofbirth: Date
-}
-
-export interface Unauthorized {
-  success: Boolean,
-  statusCode: number,
-  message: String,
-};
 export interface TicketObject {
   movieName: string,
   movieStartTime: string,
@@ -52,14 +35,4 @@ export interface UserObject {
   phoneNo: string,
   password: string,
   address: string,
-}
-export interface User {
-  _id: string,
-  username: string,
-  email: string,
-  phoneNo: string,
-  password: string,
-  address: string,
-  ticketIds: string,
-  __v: number
 }

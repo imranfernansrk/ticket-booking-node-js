@@ -53,7 +53,7 @@ export class Services {
             jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET_KEY, {
                 expiresIn: '5m'
             }, (err, token) => {
-                if (err){
+                if (err) {
                     return response.error('Auth Token Error');
                 }
                 return response.Success(user, token, "signin success");
@@ -63,49 +63,51 @@ export class Services {
         }
     }
     public async createTicket(body: TicketObject): Promise<post_response | get_response | error_response | fail_response> {
-        try{
+        try {
             let data: any = await this.UserDao.createTicket(body);
-            if(!data){
+            if (!data) {
                 return response.error('failure');
             }
             return response.Success(data, null, 'success');
-        }catch (e) {
+        } catch (e) {
             return response.error('Auth Generate Error');
         }
     }
     public async deleteTicket(id: string): Promise<post_response | get_response | error_response | fail_response> {
-        if(id == undefined){
+        if (id == undefined) {
             return response.badRequest('failure');
         }
-        try{
+        try {
             let data: any = await this.UserDao.findByIdAndDelete(id);
-            if(!data){
+            if (!data) {
                 return response.error('failure');
             }
             return response.Success(data, null, 'success');
-        }catch (e) {
+        } catch (e) {
             return response.notFound();
         }
     }
-    // public async updateuser(id: string, body: data): Promise<post_response | get_response | error_response> {
-
-    //         const user: any = await this.UserDao.getUser(id);
-    //         const validation = user_validate.validateUser(body);
-    //         if (validation.message){
-    //             return response.badRequest(validation.message)
-    //         }
-    //         user.firstName = body.firstName;
-    //         user.lastName = body.lastName;
-    //         user.gender = body.gender;
-    //         user.dob = body.dob;
-    //         user.email = body.email
-    //         user.address = body.address
-    //         await this.UserDao?.updateuser(user._id, user)
-    //     let result = await this.UserDao.getUser(id);
-    //     if(!result){
-    //         return response.notFound()
-    //       }
-    //     return response.Success(result,null,"sucess");
-    // }
+    public async updateTicket(id: string, status: string): Promise<post_response | get_response | error_response | fail_response> {
+        if (id == undefined || status == undefined) {
+            return response.badRequest('failure');
+        }
+        const update = {
+            "status": status
+        }
+        try {
+            let data: any = await this.UserDao.findByIdAndUpdate(id, update);
+            if (!data) {
+                return response.notFound();
+            }
+            try {
+                let ticket = await this.UserDao.getTicket(data._id);
+                return response.Success(ticket, null, 'success');
+            } catch (e) {
+                return response.error('failure');
+            }
+        } catch (e) {
+            return response.notFound();
+        }
+    }
 
 }

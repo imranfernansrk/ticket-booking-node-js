@@ -13,6 +13,12 @@ export class userDao {
           });
         return await result.save();
     }
+    public async findone(data:string){
+        return await UserModel.findOne({username:data}); 
+    }
+    public async getUser(id: string){
+        return await UserModel.findById(id);
+    }
     public async createTicket(body: TicketObject):Promise<object>{
         console.log("body",body);
         const result = new TicketModel({
@@ -27,8 +33,11 @@ export class userDao {
     public async findByIdAndDelete(id:string):Promise<any>{
         return await TicketModel.findByIdAndDelete(id);
     }
-    public async findone(data:string){
-        return await UserModel.findOne({username:data}); 
+    public async findByIdAndUpdate(id:string, update: object):Promise<any>{
+        return await TicketModel.findByIdAndUpdate(id, update);
+    }
+    public async getTicket(id: string){
+        return await TicketModel.findById(id);
     }
     // public async updateuser(id:string,data:data):Promise<object | null>{
     //    return await userModal.findOneAndUpdate({_id: id}, data);

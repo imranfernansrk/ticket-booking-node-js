@@ -26,12 +26,12 @@ export class userControllers {
         const data: post_response | get_response | error_response | fail_response = await UserService.deleteTicket(id);
         res.status(data.statusCode).json(data);
     }
-    // public async updateTicket(req: Request, res: Response): Promise<void> {
-    //     const id = await req.params.id;
-    //     const status = await req.body.status;
-    //     const data: post_response | get_response | error_response | fail_response = await UserService.updateuser(id, status);
-    //     res.status(data.statusCode).json(data);
-    // }    
+    public async updateTicket(req: Request, res: Response): Promise<void> {
+        const id = await req.params.id;
+        const status = await req.body.status;
+        const data: post_response | get_response | error_response | fail_response = await UserService.updateTicket(id, status);
+        res.status(data.statusCode).json(data);
+    }    
     // public async getTicket(req: Request, res: Response): Promise<void> {
     //     const id = req.params.id;
     //     const data: post_response | get_response | error_response | fail_response = await UserService.updateuser(id);

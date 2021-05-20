@@ -4,10 +4,16 @@ import { ticketController } from "../Controller/ticketController";
 import { Auth } from '../Auth/Authentication'
 const Authorization = new Auth();
 export class userRoutes {
-    constructor
-    (public UserController:userControllers=new userControllers(),
-    public TicketController:ticketController = new ticketController()){
+    UserController: userControllers;
+    TicketController: ticketController;
+    // constructor
+    // (public UserController:userControllers=new userControllers(),
+    // public TicketController:ticketController = new ticketController()){
         
+    // }
+    constructor(){
+        this.UserController = new userControllers();
+        this.TicketController = new ticketController();
     }
      public userroutes(app: Application):void {
          console.log("routes");

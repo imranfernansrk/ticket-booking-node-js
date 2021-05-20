@@ -6,11 +6,6 @@ const Authorization = new Auth();
 export class userRoutes {
     UserController: userControllers;
     TicketController: ticketController;
-    // constructor
-    // (public UserController:userControllers=new userControllers(),
-    // public TicketController:ticketController = new ticketController()){
-        
-    // }
     constructor(){
         this.UserController = new userControllers();
         this.TicketController = new ticketController();

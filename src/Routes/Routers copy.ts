@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { hashPassword, checkPassword } from "../ManagePassword/managePass";
 import * as jwt from "jsonwebtoken";
 import { Response as res } from "../Utils/Response";
-import { UserObject, User, TicketObject } from "../Utils/Types";
+import { UserObject, TicketObject } from "../Utils/Types";
 const responseObject = new res();
 var Authntication = require("../Auth/Authentication");
 var ticketTemp = require('../Models/Ticket');
@@ -32,7 +32,7 @@ router.post('/signup', async (req: Request, res: Response) => {
         createUser.password = await hashPassword(password);
 
         await createUser.save()
-            .then((data: User) => {
+            .then((data: any) => {
                 const payload = {
                     user: {
                         id: data._id
@@ -59,7 +59,7 @@ router.post('/signup', async (req: Request, res: Response) => {
 router.post('/signin', async (req: Request, res: Response) => {
     const { username, password } = await req.body;
     try {
-        let user: User = await userTemp.findOne({
+        let user: any = await userTemp.findOne({
             username
         })
         if (!user) {

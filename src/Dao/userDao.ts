@@ -19,4 +19,7 @@ export class userDao {
     public async getUser(id: string){
         return await UserModel.findById(id);
     }
+    public async findByIdAndUpdate(id: string, update: object): Promise<any> {
+        return await UserModel.findByIdAndUpdate(id, update);
+    }
 }

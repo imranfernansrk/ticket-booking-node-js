@@ -22,4 +22,10 @@ export class userControllers {
         console.log('status code', await result);
         res.status(result.statusCode).json(result);
     }
+    public async bookTickets(req: Request, res: Response): Promise<void>{
+        Logs.logger.info('Booktickets api triggers');
+        const {userId, bookTickets} = req.body;
+        const result: post_response | get_response | error_response | fail_response = await UserService.bookTickets(userId, bookTickets);
+        res.status(result.statusCode).json(result);
+    }
 }

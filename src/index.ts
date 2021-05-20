@@ -8,6 +8,7 @@ import * as mongoose from 'mongoose';
 import { Log } from "./Logger/Logger";
 require("dotenv").config();
 
+const PORT = process.env.PORT || 4000;
 const Logs = new Log();
 class App{
     expressApp: Application;
@@ -26,7 +27,6 @@ class App{
         this.expressApp.use(cors({ credentials: true, origin: true , }));
     }
     portSetup() {
-        const PORT = process.env.PORT || 4000;
         http.createServer(this.expressApp).listen(PORT);
     }
     mongoSetup() {
